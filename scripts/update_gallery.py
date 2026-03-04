@@ -4,7 +4,7 @@ Script para actualizar la galeria de imagenes.
 Funciones:
 1. Escanea carpetas groupA/ y groupB/ en busca de imagenes
 2. Renombra las imagenes al formato secuencial foto_001.jpg, foto_002.jpg...
-3. Redimensiona imagenes mayores a 2048x2048 (limite de VRChat)
+3. Redimensiona imagenes para que no excedan 1080px en ninguna dimension
 4. Genera gallery-index.json con el conteo por grupo
 
 Ejecutar: python scripts/update_gallery.py
@@ -27,7 +27,7 @@ except ImportError:
 # Configuracion
 GROUPS = ["groupA", "groupB"]
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".bmp"}
-MAX_DIMENSION = 2048  # Limite de VRChat
+MAX_DIMENSION = 1080  # Redimensionar a 1080px maximo
 JPEG_QUALITY = 85
 ROOT_DIR = Path(__file__).parent.parent  # Sube de scripts/ a la raiz
 
