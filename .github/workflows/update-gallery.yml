@@ -1,0 +1,46 @@
+name: Update Gallery Index
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'groupA/**'
+      - 'groupB/**'
+  # Se ejecuta cada hora (GitHub no permite menos de 5 min en schedule)
+  schedule:
+    - cron: '0 * * * *'
+  # Permite ejecucion manual desde la web de GitHub
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-index:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar Pillow para redimensionar imagenes
+        run: pip install Pillow
+
+      - name: Ejecutar script de actualizacion
+        run: python scripts/update_gallery.py
+
+      - name: Commit y push si hay cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "Sin cambios, nada que commitear"
+          else
+            git commit -m "Auto-update gallery index and rename photos"
+            git push
+          fi
