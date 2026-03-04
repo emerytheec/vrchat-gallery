@@ -1,4 +1,8 @@
 {
-  "groupA": { "count": 0 },
-  "groupB": { "count": 0 }
+  "groupA": {
+    "count": 0
+  },
+  "groupB": {
+    "count": 0
+  }
 }
